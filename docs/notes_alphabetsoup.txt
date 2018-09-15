@@ -14,6 +14,11 @@ It is wrapped into a Flask Web Framework.
 
 ======================================
 
+Proceed with the next commands
+from your OS Command Line
+
+======================================
+
 App sources download
 
 Note: following commands include settings for proxy server.
@@ -73,9 +78,9 @@ You can run the application
 as intended with the below section notes)
 
 On Linux
-(venv) $ export FLASK_APP=qndbaseapp.py
+(venv) $ export FLASK_APP=alphabetsoup.py
 On MS Windows
-(venv) $ set FLASK_APP=qndbaseapp.py
+(venv) $ set FLASK_APP=alphabetsoup.py
 
 (venv) $ flask run
 
@@ -151,3 +156,13 @@ but please consider the language required by the position for which you are appl
 as described by Murray Gell-Mann
 
 ======================================
+
+
+
+======================================
+
+
+
+
+======================================
+
