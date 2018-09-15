@@ -14,12 +14,12 @@ class MainApp:
         self.message = message
         self.letters = letters
 
-        print(self.message)
-        print(self.letters)
+        # print(self.message)
+        # print(self.letters)
 
     def hasmessage(self):
-        print(self.message)
-        print(self.letters)
+        # print(self.message)
+        # print(self.letters)
 
         if self.message in self.letters:
             return True
@@ -29,8 +29,13 @@ class MainApp:
 
 if __name__ == '__main__':
     message = 'fkijdff'
-    letters = 'cvjolalgnfkdbooaslldfgDFGDFglsidjfokasdf'
-    # letters = 'fkijdff'
+    # letters = 'cvjolalgnfkdbooaslldfgDFGDFglsidjfokasdf'
+    letters = 'fkijdff'
+
+    print(message)
+    print(letters)
+
     cooking = MainApp(message, letters)
     showme = cooking.hasmessage()
+
     print('My message is in the soup: {}'.format(showme))
