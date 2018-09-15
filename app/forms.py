@@ -32,6 +32,7 @@ class RegistrationForm(FlaskForm):
             raise ValidationError('Please use a different email address.')
 
 
-class DocForm(FlaskForm):
-    doc = StringField('Document', validators=[DataRequired()])
+class AlphabetSoupForm(FlaskForm):
+    message = StringField('Message you want to write', validators=[DataRequired()])
+    letters = StringField('Letters in your bowl of alphabet soup', validators=[DataRequired()])
     submit = SubmitField('Submit')

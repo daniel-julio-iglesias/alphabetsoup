@@ -1,20 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Views
-from flask import render_template, flash, redirect, url_for
-from app import app
-from app.forms import LoginForm, DocForm
-from app.mainapp import MainApp
-from flask_login import current_user, login_user
-from app.models import User
-from flask_login import logout_user
-from flask_login import login_required
-from flask import request
-from werkzeug.urls import url_parse
-from app import db
-from app.forms import RegistrationForm
 import os
-from config import basedir
+from flask import render_template, flash, redirect, url_for, request
+from flask_login import current_user, login_user, logout_user, login_required
+from app import app, db
+from app.models import User
+from app.forms import LoginForm, RegistrationForm, AlphabetSoupForm
+from app.mainapp import MainApp
+from werkzeug.urls import url_parse
 
 
 @app.route('/')
@@ -67,21 +61,19 @@ def register():
 @app.route('/alphabetsoup', methods=['GET', 'POST'])
 @login_required
 def alphabetsoup():
-    """ AlphaBet Soup Puzzle
     """
-    form = DocForm()
+        AlphaBet Soup Puzzle
+    """
+    form = AlphabetSoupForm()
+
     if form.validate_on_submit():
+        message = form.message.data
+        letters = form.letters.data
 
-        # training_dir = os.path.join(basedir, 'app', 'static', 'app', 'app-kb', 'app-kb-train')
-        training_dir = os.path.join(basedir, 'app', 'static', 'app', 'app-kb', 'app-kb-train', '00010Preface')
-        doc = form.doc.data
-        # doc = '01.txt'
-        training_dir = training_dir + os.sep
-        mba = MainApp(training_dir, doc)
-        content = mba.extract()
+        cooking = MainApp(message, letters)
+        showme = cooking.hasmessage()
 
-        flash('Alphabet Soup Puzzle for  document {}, content {}'.format(
-             form.doc.data, content))
+        flash('I can construct my message: {}'.format(showme))
         # return redirect(url_for('index'))
 
         return render_template('alphabetsoup.html', title='Alphabet Soup Puzzle', form=form)

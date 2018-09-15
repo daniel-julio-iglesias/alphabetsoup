@@ -1,13 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Quick and Dirty Base Application</h1>
+    <h1>Alphabet Soup Puzzle</h1>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
-            {{ form.doc.label }}<br>
-            {{ form.doc() }}<br>
-            {% for error in form.doc.errors %}
+            {{ form.message.label }}<br>
+            {{ form.message() }}<br>
+            {% for error in form.message.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.letters.label }}<br>
+            {{ form.letters() }}<br>
+            {% for error in form.letters.errors %}
             <span style="color: red;">[{{ error }}]</span>
             {% endfor %}
         </p>

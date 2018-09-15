@@ -7,27 +7,30 @@ from config import basedir
 
 
 class MainApp:
-    """ This is a Main Application
     """
-    def __init__(self, trainingdir, inputdoc):
-        self.trainingdir = trainingdir
-        self.inputdoc = inputdoc
+        This is a Main Application
+    """
+    def __init__(self, message, letters):
+        self.message = message
+        self.letters = letters
 
-        filename = self.trainingdir + self.inputdoc
-        # self.f = open(filename)
-        self.f = codecs.open(filename, 'r', 'iso8859-1')
-        # print(self.f.readline())
+        print(self.message)
+        print(self.letters)
 
-    def extract(self):
-        content = self.f.readline()
-        # print(content)
-        return content
+    def hasmessage(self):
+        print(self.message)
+        print(self.letters)
+
+        if self.message in self.letters:
+            return True
+        else:
+            return False
 
 
 if __name__ == '__main__':
-    # training_dir = os.path.join(basedir, 'app', 'static', 'app', 'app-kb', 'app-kb-train')
-    training_dir = os.path.join(basedir, 'app', 'static', 'app', 'app-kb', 'app-kb-train', '00010Preface')
-    training_dir = training_dir + os.sep
-    doc = '01.txt'
-    mba = MainApp(training_dir, doc)
-    print(mba.extract())
+    message = 'fkijdff'
+    letters = 'cvjolalgnfkdbooaslldfgDFGDFglsidjfokasdf'
+    # letters = 'fkijdff'
+    cooking = MainApp(message, letters)
+    showme = cooking.hasmessage()
+    print('I can construct my message: {}'.format(showme))
