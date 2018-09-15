@@ -64,25 +64,25 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/sectionsextract', methods=['GET', 'POST'])
+@app.route('/alphabetsoup', methods=['GET', 'POST'])
 @login_required
-def sectionsextract():
-    """ Adapt to your functionality
+def alphabetsoup():
+    """ AlphaBet Soup Puzzle
     """
     form = DocForm()
     if form.validate_on_submit():
 
         # training_dir = os.path.join(basedir, 'app', 'static', 'app', 'app-kb', 'app-kb-train')
         training_dir = os.path.join(basedir, 'app', 'static', 'app', 'app-kb', 'app-kb-train', '00010Preface')
-        # doc = form.document.data
-        doc = '01.txt'
+        doc = form.doc.data
+        # doc = '01.txt'
         training_dir = training_dir + os.sep
         mba = MainApp(training_dir, doc)
         content = mba.extract()
 
-        flash('Document Section Extracted for  document {}, content {}'.format(
+        flash('Alphabet Soup Puzzle for  document {}, content {}'.format(
              form.doc.data, content))
         # return redirect(url_for('index'))
 
-        return render_template('alphabetsoup.html', title='Document Sections Extractor', form=form)
-    return render_template('alphabetsoup.html', title='Document Sections Extractor', form=form)
+        return render_template('alphabetsoup.html', title='Alphabet Soup Puzzle', form=form)
+    return render_template('alphabetsoup.html', title='Alphabet Soup Puzzle', form=form)

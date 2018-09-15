@@ -7,12 +7,13 @@ from config import basedir
 
 
 class MainApp:
-    """ This is a Main Base Application Template
-        to replicate / adapta / update
-        to your needs
+    """ This is a Main Application
     """
     def __init__(self, trainingdir, inputdoc):
-        filename = trainingdir + inputdoc
+        self.trainingdir = trainingdir
+        self.inputdoc = inputdoc
+
+        filename = self.trainingdir + self.inputdoc
         # self.f = open(filename)
         self.f = codecs.open(filename, 'r', 'iso8859-1')
         # print(self.f.readline())

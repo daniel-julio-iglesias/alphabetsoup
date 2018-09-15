@@ -112,11 +112,11 @@ URL: http://localhost:5000/
 URL: http://localhost:5000/index
 
 ======================================
-
+======================================
 
 TODO: Adapt to your functionality
 
-
+======================================
 ======================================
 
 Alphabet soup
@@ -154,12 +154,63 @@ but please consider the language required by the position for which you are appl
 
 — “The Feynman Algorithm”
 as described by Murray Gell-Mann
+======================================
+======================================
 
+Sources:
+
+Alphabet SOUP - Stanford University
+https://ai.stanford.edu/~koller/Papers/Gould+al:CVPR09.pdf
+
+Alphabet SOUP: A Framework for Approximate Energy Minimization
+http://ai.stanford.edu/~sgould/papers/cvpr09-alphabetSOUP-poster.pdf
+
+Alphabet Soup: What Does Artificial Intelligence Really Mean?
+https://blogs.cfainstitute.org/marketintegrity/2018/06/15/alphabet-soup-what-does-artificial-intelligence-really-mean/
+
+
+Alphabet Soup - Hazardous Software
+https://www.hazardoussoftware.com/docs/christopher-hazard/chazard_2006_alphabet_soup.pdf
+
+
+Alphabet SOUP: A framework for approximate energy minimization
+https://ieeexplore.ieee.org/document/5206650/
+
+
+Optimization: Formulations, Algorithms and Applications 1
+https://www.ceb.cam.ac.uk/data/files/events/vsv-optimization-seminar-may-2011handout.pdf
+
+
+
+---------
+
+Big O notation
+https://en.wikipedia.org/wiki/Big_O_notation
+
+Mohr, Austin. "Quantum Computing in Complexity Theory and Theory of Computation" (PDF). p. 2. Retrieved 7 June 2014.
+http://www.austinmohr.com/Work_files/complexity.pdf
+
+Howell, Rodney. "On Asymptotic Notation with Multiple Variables" (PDF). Retrieved 2015-04-23
+http://people.cs.ksu.edu/~rhowell/asymptotic.pdf
+
+Donald Knuth. "Big Omicron and big Omega and big Theta", SIGACT News, Apr.-June 1976, 18–24.
+http://www.phil.uu.nl/datastructuren/10-11/knuth_big_omicron.pdf
+
+Balcázar, José L.; Gabarró, Joaquim. "Nonuniform complexity classes specified by lower and upper bounds" (PDF). RAIRO - Theoretical Informatics and Applications - Informatique Théorique et Applications. 23 (2): 180. ISSN 0988-3754. Retrieved 14 March 2017
+http://archive.numdam.org/article/ITA_1989__23_2_177_0.pdf
+
+Vitányi, Paul; Meertens, Lambert (April 1985). "Big Omega versus the wild functions" (PDF). ACM SIGACT News. 16 (4): 56–59. doi:10.1145/382242.382835.
+http://www.kestrel.edu/home/people/meertens/publications/papers/Big_Omega_contra_the_wild_functions.pdf
+
+
+for example it is omitted in: Hildebrand, A.J. "Asymptotic Notations" (PDF). Asymptotic Methods in Analysis. Math 595, Fall 2009. Retrieved 14 March 2017
+https://faculty.math.illinois.edu/~hildebr/595ama/ama-ch2.pdf
+
+======================================
 ======================================
 
 
 
-======================================
 
 
 
