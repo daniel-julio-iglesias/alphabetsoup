@@ -33,4 +33,4 @@ if __name__ == '__main__':
     # letters = 'fkijdff'
     cooking = MainApp(message, letters)
     showme = cooking.hasmessage()
-    print('I can construct my message: {}'.format(showme))
+    print('My message is in the soup: {}'.format(showme))

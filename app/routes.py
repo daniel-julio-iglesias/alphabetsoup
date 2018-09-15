@@ -73,7 +73,7 @@ def alphabetsoup():
         cooking = MainApp(message, letters)
         showme = cooking.hasmessage()
 
-        flash('I can construct my message: {}'.format(showme))
+        flash('My message is in the soup: {}'.format(showme))
         # return redirect(url_for('index'))
 
         return render_template('alphabetsoup.html', title='Alphabet Soup Puzzle', form=form)
