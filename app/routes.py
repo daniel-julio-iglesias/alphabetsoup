@@ -71,9 +71,9 @@ def alphabetsoup():
         letters = form.letters.data
 
         cooking = MainApp(message, letters)
-        showme = cooking.has_message()
+        show_me = cooking.has_message()
 
-        flash('My message is in the soup: {}'.format(showme))
+        flash('My message is in the soup: {}'.format(show_me))
         # return redirect(url_for('index'))
 
         return render_template('alphabetsoup.html', title='Alphabet Soup Puzzle', form=form)
