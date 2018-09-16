@@ -1,29 +1,45 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# import os
-# import codecs
-# import math
-# from config import basedir
 from collections import Counter
 import cProfile, pstats
 
 
 class MainApp:
-    """
-        This is a Main Application
-        for Alphabet Soup Puzzle
+    """This is a Main Application  for Alphabet Soup Puzzle
+    Steps overview:
+    1. We do a cleaning process getting rid of punctuations and leaving only letters (or numbers) in the input strings.
+    2. Apply the matching method on the strings
+    3. Strings are converted into Multi-Sets
+    4. Reuse Multi-Sets capabilities (in Python -- similar to a pseudo-code --)
+    for matching the existence of each element from "message to write" into "the bowl with alphabet soup"
+    5. Returning True if the letters in message exist in the alphabet bowl, otherwise return False.
+
+    Big-O Notation / Analysis: (Which one is the most representative?)
+    (A) O(n)
+    (B) O(n^2)
+    (C) O(log n)
+    (D) O(n^3)
+
+    - Function "is_message_in_letters_method_1"  implements a Compare method of two Multi-Sets,
+    in the way its elements can be duplicated and unordered.
+    - The two input strings are not the same length (m,s).
+    - In the main internal matching cycle, the function immediately interrupts
+    processing and returns False, in case there is an element in message with no matching in the bowl,
+    avoiding processing the whole message.
+    - The worst scenario is when all the message letters are included in the alphabet bowl.
+    - The method is practically based on the frequency of the items in the bowl.
+    - For for Big-O running time there is considered one big cycle to run through two possible variables:
+        - length of the message (m) and
+        - the number of letters in the bowl of soup (s)
+    - The solution has a number of iterations, none of them is nested.
+    - The Big-O running time is of:
+        --   O(ms)
     """
     def __init__(self, message, letters):
         self.message = message
         self.letters = letters
 
-        # print(self.message)
-        # print(self.letters)
-
     def has_message(self):
-        # print(self.message)
-        # print(self.letters)
-
         cleaned_message = self.clean_message()
         letters_in_bowl = self.clean_letters()
 
@@ -36,20 +52,16 @@ class MainApp:
         and create string of letters only
         """
         s = input_string
-        # print("s: {}".format(s))
         tokens = s.split()
-        # print("Original tokens: {}".format(tokens))
 
         new_tokens = []
         for token in tokens:
             # TODO: Add any punctuation you want get rid off
             token = token.strip('\'".,?:-!')
-            # print("token: {}".format(token))
             if token != '':
                 new_tokens.append(token)
 
         new_string = ''.join(new_tokens)
-        # print("New tokens: {}".format(new_string))
         return new_string
 
     def clean_message(self):
@@ -67,26 +79,25 @@ class MainApp:
         return self.clean_string(self.letters)
 
     def is_message_in_letters_method_1(self, message, letters):
-        """Algoritmm method 1:
+        """Algorithm method 1:
         Using containers (collections.Counter class) matching
+        subtract([iterable-or-mapping])
+        Elements are subtracted from an iterable or from another mapping (or counter). Like dict.update()
+        but subtracts counts instead of replacing them. Both inputs and outputs may be zero or negative.
+        >>> c = Counter(a=4, b=2, c=0, d=-2)
+        >>> d = Counter(a=1, b=2, c=3, d=4)
+        >>> c.subtract(d)
+        >>> c
+        Counter({'a': 3, 'b': 0, 'c': -3, 'd': -6})
         """
+        print("Message lengh: {}".format(len(message)))
+        print("Number of letters: {}".format(len(letters)))
         message_c = Counter(message)
         letters_c = Counter(letters)
-
-        # print(message_c)
-        # print(letters_c)
-
         letters_c.subtract(message_c)
-
-        # print("After subtract", message_c)
-        # print("After subtract", letters_c)
-
-        # print(sorted(letters_c.elements()))
-
         for letter in message_c.elements():
             if letters_c[letter] < 0:
                 return False
-
         return True
 
 
@@ -98,9 +109,6 @@ if __name__ == '__main__':
     # letters = 'startHelloWorldfoospamh'
     message = "HelloWorldHH"
     letters = 'startHeoWordfoospamHh'
-
-    # print(message)
-    # print(letters)
 
     cooking = MainApp(message, letters)
     # Using included profiler
