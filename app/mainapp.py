@@ -4,6 +4,7 @@
 # import codecs
 # import math
 # from config import basedir
+from collections import Counter
 import cProfile, pstats
 
 
@@ -88,7 +89,10 @@ class MainApp:
     def is_message_in_letters_method_2(self, message, letters):
         """Algoritmm method 2:
         TODO Using membership -- cleaner
-        needs to teste each messge item membership on letters in bowl
+        needs to test each messge item membership on letters in bowl
+        E.g
+        message = "Hello, World!"
+        letters = 'startHelloWorldfoospamh'
         """
 
         message_list = list(message)
@@ -102,12 +106,30 @@ class MainApp:
 
     def is_message_in_letters_method_3(self, message, letters):
         """Algoritmm method 3:
-        TODO: Using list containers matching
+        TODO: Using containers matching
         """
-        if message in letters:
-            return True
-        else:
-            return False
+
+        message = "HelloWorldHH"
+        letters = 'startHeoWordfoospamHh'
+
+        message_c = Counter(message)
+        letters_c = Counter(letters)
+
+        print(message_c)
+        print(letters_c)
+
+        letters_c.subtract(message_c)
+
+        print("After subtract", message_c)
+        print("After subtract", letters_c)
+
+        print(sorted(letters_c.elements()))
+
+        for letter in message_c.elements():
+            if letters_c[letter] < 0:
+                return False
+
+        return True
 
 
 if __name__ == '__main__':

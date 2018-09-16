@@ -226,14 +226,18 @@ http://people.cs.ksu.edu/~rhowell/asymptotic.pdf
 Donald Knuth. "Big Omicron and big Omega and big Theta", SIGACT News, Apr.-June 1976, 18–24.
 http://www.phil.uu.nl/datastructuren/10-11/knuth_big_omicron.pdf
 
-Balcázar, José L.; Gabarró, Joaquim. "Nonuniform complexity classes specified by lower and upper bounds" (PDF). RAIRO - Theoretical Informatics and Applications - Informatique Théorique et Applications. 23 (2): 180. ISSN 0988-3754. Retrieved 14 March 2017
+Balcázar, José L.; Gabarró, Joaquim. "Nonuniform complexity classes specified by lower and upper bounds" (PDF). RAIRO
+- Theoretical Informatics and Applications - Informatique Théorique et Applications. 23 (2): 180. ISSN 0988-3754.
+Retrieved 14 March 2017
 http://archive.numdam.org/article/ITA_1989__23_2_177_0.pdf
 
-Vitányi, Paul; Meertens, Lambert (April 1985). "Big Omega versus the wild functions" (PDF). ACM SIGACT News. 16 (4): 56–59. doi:10.1145/382242.382835.
+Vitányi, Paul; Meertens, Lambert (April 1985). "Big Omega versus the wild functions" (PDF). ACM SIGACT News.
+ 16 (4): 56–59. doi:10.1145/382242.382835.
 http://www.kestrel.edu/home/people/meertens/publications/papers/Big_Omega_contra_the_wild_functions.pdf
 
 
-for example it is omitted in: Hildebrand, A.J. "Asymptotic Notations" (PDF). Asymptotic Methods in Analysis. Math 595, Fall 2009. Retrieved 14 March 2017
+for example it is omitted in: Hildebrand, A.J. "Asymptotic Notations" (PDF). Asymptotic Methods in Analysis.
+Math 595, Fall 2009. Retrieved 14 March 2017
 https://faculty.math.illinois.edu/~hildebr/595ama/ama-ch2.pdf
 
 ======================================
@@ -245,3 +249,683 @@ the following command
 
 ======================================
 ======================================
+
+Python “set” with duplicate/repeated elements
+https://stackoverflow.com/questions/10176037/python-set-with-duplicate-repeated-elements
+
+
+Is there a standard way to represent a "set" that can contain duplicate elements.
+
+As I understand it, a set has exactly one or zero of an element. I want functionality to have any number.
+
+I am currently using a dictionary with elements as keys, and quantity as values, but this seems wrong for many reasons.
+
+Motivation: I believe there are many applications for such a collection. For example, a survey of favourite colours
+ could be represented by: survey = ['blue', 'red', 'blue', 'green']
+
+Here, I do not care about the order, but I do about quantities. I want to do things like:
+
+survey.add('blue')
+# would give survey == ['blue', 'red', 'blue', 'green', 'blue']
+...and maybe even
+
+survey.remove('blue')
+# would give survey == ['blue', 'red', 'green']
+Notes: Yes, set is not the correct term for this kind of collection. Is there a more correct one?
+
+A list of course would work, but the collection required is unordered. Not to mention that the method naming for sets
+ seems to me to be more appropriate.
+
+--------------------------------------
+
+
+
+You are looking for a multiset.
+
+Python's closest datatype is collections.Counter:
+
+A Counter is a dict subclass for counting hashable objects. It is an unordered collection where elements are stored
+as dictionary keys and their counts are stored as dictionary values. Counts are allowed to be any integer value
+including zero or negative counts. The Counter class is similar to bags or multisets in other languages.
+
+
+For an actual implementation of a multiset, use the bag class from the data-structures package on pypi.
+ Note that this is for Python 3 only. If you need Python 2, here is a recipe for a bag written for Python 2.4.
+
+
+--------------------------------------
+
+
+Your approach with dict with element/count seems ok to me. You probably need some more functionality.
+ Have a look at collections.Counter.
+
+- O(1) test whether an element is present and current count retrieval (faster than with element in list and
+ list.count(element))
+- counter.elements() looks like a list with all duplicates
+- easy manipulation union/difference with other Counters
+
+--------------------------------------
+
+
+You can use a plain list and use list.count(element)
+ whenever you want to access the "number" of elements.
+
+my_list = [1, 1, 2, 3, 3, 3]
+
+my_list.count(1) # will return 2
+
+--------------------------------------
+
+An alternative Python multiset implementation uses a sorted list data structure.
+There are a couple implementations on PyPI. One option is the sortedcontainers module which implements a
+SortedList data type that efficiently implements set-like methods like add, remove, and contains.
+The sortedcontainers module is implemented in pure-Python, fast-as-C implementations (even faster),
+has 100% unit test coverage, and hours of stress testing.
+
+Installation is easy from PyPI:
+
+pip install sortedcontainers
+If you can't pip install then simply pull the sortedlist.py file down from the open-source repository.
+
+Use it as you would a set:
+
+from sortedcontainers import SortedList
+survey = SortedList(['blue', 'red', 'blue', 'green']]
+survey.add('blue')
+print survey.count('blue') # "3"
+survey.remove('blue')
+The sortedcontainers module also maintains a performance comparison with other popular implementations.
+
+
+
+--------------------------------------
+
+
+What you're looking for is indeed a multiset (or bag), a collection of not necessarily distinct elements (whereas
+a set does not contain duplicates).
+
+There's an implementation for multisets here: https://github.com/mlenzen/collections-extended
+(Pypy's collections extended module).
+
+The data structure for multisets is called bag. A bag is a subclass of the Set class from
+collections module with an extra dictionary to keep track of the multiplicities of elements.
+
+class _basebag(Set):
+    """
+    Base class for bag and frozenbag.   Is not mutable and not hashable, so there's
+    no reason to use this instead of either bag or frozenbag.
+    """
+    # Basic object methods
+
+    def __init__(self, iterable=None):
+        """Create a new basebag.
+
+        If iterable isn't given, is None or is empty then the bag starts empty.
+        Otherwise each element from iterable will be added to the bag
+        however many times it appears.
+
+        This runs in O(len(iterable))
+        """
+        self._dict = dict()
+        self._size = 0
+        if iterable:
+            if isinstance(iterable, _basebag):
+                for elem, count in iterable._dict.items():
+                    self._inc(elem, count)
+            else:
+                for value in iterable:
+                    self._inc(value)
+A nice method for bag is nlargest (similar to Counter for lists), that returns the multiplicities
+of all elements blazingly fast since the number of occurrences of each element is kept up-to-date
+in the bag's dictionary:
+
+>>> b=bag(random.choice(string.ascii_letters) for x in xrange(10))
+>>> b.nlargest()
+[('p', 2), ('A', 1), ('d', 1), ('m', 1), ('J', 1), ('M', 1), ('l', 1), ('n', 1), ('W', 1)]
+>>> Counter(b)
+Counter({'p': 2, 'A': 1, 'd': 1, 'm': 1, 'J': 1, 'M': 1, 'l': 1, 'n': 1, 'W': 1})
+
+
+--------------------------------------
+
+If you need duplicates, use a list, and transform it to a set when you need operate as a set.
+
+======================================
+
+Python: How to allow duplicates in a set?
+https://stackoverflow.com/questions/9455750/python-how-to-allow-duplicates-in-a-sethttps://stackoverflow.com/questions/9455750/python-how-to-allow-duplicates-in-a-set
+
+
+I ran into a problem regarding set in Python 2.7.
+
+Here's the appropriate example code block:
+
+letters = set(str(raw_input("Type letters: ")))
+As you can see, the point is to write some letters to assign to "letters" for later use. But if I type "aaabbcdd", the output of "letters" returns
+
+set(['a', 'c', 'b', 'd'])
+My question is how to write the code, so that the output will allow duplicates like this:
+
+set(['a','a','a','b','b','c','d','d'])
+?
+
+
+--------------------------------------
+
+set doesn't store duplicates, which is why it's called a set.
+You should use an ordinary str or list and sort it if necessary.
+
+>>> sorted(raw_input("Type letters: "))
+Type letters: foobar
+['a', 'b', 'f', 'o', 'o', 'r']
+An alternative (but overkill for your example) is the multiset container collections.Counter,
+available from Python 2.7.
+
+>>> from collections import Counter
+>>> c = Counter(raw_input("Type letters: "))
+>>> c
+Counter({'o': 2, 'a': 1, 'r': 1, 'b': 1, 'f': 1})
+>>> sorted(c.elements())
+['a', 'b', 'f', 'o', 'o', 'r']
+
+======================================
+
+Big O complexity for recursive anagram algorithm
+https://stackoverflow.com/questions/10606205/big-o-complexity-for-recursive-anagram-algorithm
+
+I am trying to return all the permutations of a string using a recursive method anagram(). For any word "ABCD...N",
+ the function returns a list with the letter "A" in as many positions as possible within anagram("BCD...N").
+ The limiting case of the recursion would be that if the argument is of size two (eg: "XY"), it returns ['XY','YX'].
+
+Code is as follows:
+
+def anagram(block):
+   if (len(block) <= 2):
+      permu=list()
+      permu.append(block[0]+block[1])
+      permu.append(block[1]+block[0])
+   else:
+      permu=list()
+      lowerpermu=anagram(block[1:])             # anag(sd)
+      for blocklet in lowerpermu:           # sd, ds are blocklets
+         for each in rotate(block[0],blocklet):     # each in ['asd', 'sad', 'sda'] and ['ads', 'das', 'dsa']
+            permu.append(each)
+   return permu
+
+
+def rotate(letter, word):
+   rotatedlist=list()
+   for i in range(len(word)+1):
+      rotatedlist.append(word[:i]+letter+word[i:])
+   return rotatedlist
+
+def main():
+   word=raw_input('Enter the word to be anagrammed: ')  #for example: 'asd'
+   print anagram(word)
+
+if __name__ == '__main__':
+    main()
+
+I am teaching myself general algorithms and their analysis, and I would be grateful if someone could suggest
+a rule of thumb method for estimating the order of algorithms where recursion is involved.
+
+python
+recursion
+big-o
+anagram
+
+https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-046j-introduction-to-algorithms-sma-5503-fall-2005/
+
+======================================
+Why is time complexity of merging 2 n-sized sorted arrays O(n) and not Θ(n)?
+
+https://stackoverflow.com/questions/52247893/why-is-time-complexity-of-merging-2-n-sized-sorted-arrays-on-and-not-%CE%98n
+
+I've seen in many places that the time complexity of merging 2 n-sized sorted arrays is O(n). Isn't Θ(n) more accurate here?
+
+Thanks in advance!
+
+arrays
+algorithm
+merge
+time-complexity
+big-o
+shareedit
+asked Sep 9 at 19:19
+
+Jonathan
+11
+ New contributor
+3
+That's right, but these two notations are often used to mean the same thing even though they're different. Θ(f(n))
+ is always more accurate than O(f(n)) by the way (see stackoverflow.com/questions/471199/…) – Dici Sep 9 at 19:27
+Possible duplicate of What is the difference between Θ(n) and O(n)? – Dukeling Sep 10 at 0:16
+--------------------------------------
+
+
+Proving Θ(f(x)) is more difficult than proving O(f(x)) so many people don't bother. However, in this case it is actually
+correct that in-place merging two n-sized sorted lists is O(n) for all possible inputs and not Θ(n).
+
+Obviously, copy-merging two n-sized lists can't be better than O(n), because 2*n elements are being copied. However,
+in-place merging can be implemented in Ω(1) for best case scenarios. This is a simple case when all elements of the first list are smaller or equal to elements in the second list. A merging algorithm can detect this situation in O(1) and do nothing if the elements are already in the correct order, hence Ω(1) for best case.
+
+Conclusion: in-place merging is not Θ(n), but is Ω(1) instead. Actually, in-place merging with additional memory
+can be Ω(1) and O(n), but without additional memory it takes O(n log n) to merge two n-sized lists, so obviously the
+question is not about this case.
+
+That's why it is simpler just to say O(n) and not be bothered with the details of in-place vs. copy merging. Also,
+usually what bothers programmers are the worst case, and the average case, not the best case.
+
+edit 1
+In many cases when people say O(f(n)) they mean Θ(f(n)) worst-case complexity. In-place merging is also Θ(n) for the
+worst case, just like copy-merging.
+
+edit 2
+People usually refer to all possible runs when they talk about complexity. If worst case is Θ(f(x)) and best case is
+Θ(g(x)), then it is technically correct to write that O(f(x)) and Ω(g(x)) are tight for all possible cases.
+
+Similarly, if copying an array is Θ(n), there is no sense saying that it is O(2n). That would be technically correct,
+but a very uncommon use of the big O notation.
+
+
+
+======================================
+
+What is the difference between Θ(n) and O(n)?
+https://stackoverflow.com/questions/471199/what-is-the-difference-between-%CE%98n-and-on
+
+
+Sometimes I see Θ(n) with the strange Θ symbol with something in the middle of it, and sometimes just O(n).
+Is it just laziness of typing because nobody knows how to type this symbol, or does it mean something different?
+
+--------------------------------------
+
+Short explanation:
+If an algorithm is of Θ(g(n)), it means that the running time of the algorithm as n (input size) gets larger is
+ proportional to g(n).
+
+If an algorithm is of O(g(n)), it means that the running time of the algorithm as n gets larger is at most proportional
+ to g(n).
+
+Normally, even when people talk about O(g(n)) they actually mean Θ(g(n)) but technically, there is a difference.
+
+More technically:
+O(n) represents upper bound. Θ(n) means tight bound. Ω(n) represents lower bound.
+
+f(x) = Θ(g(x)) iff f(x) = O(g(x)) and f(x) = Ω(g(x))
+
+Basically when we say an algorithm is of O(n), it's also O(n2), O(n1000000), O(2n), ... but a Θ(n) algorithm is not Θ(n2).
+
+In fact, since f(n) = Θ(g(n)) means for sufficiently large values of n, f(n) can be bound within c1g(n) and c2g(n)
+for some values of c1 and c2, i.e. the growth rate of f is asymptotically equal to g: g can be a lower bound and and an
+upper bound of f. This directly implies f can be a lower bound and an upper bound of g as well. Consequently,
+
+f(x) = Θ(g(x)) iff g(x) = Θ(f(x))
+
+Similarly, to show f(n) = Θ(g(n)), it's enough to show g is an upper bound of f (i.e. f(n) = O(g(n))) and f is a lower
+ bound of g (i.e. f(n) = Ω(g(n)) which is the exact same thing as g(n) = O(f(n))). Concisely,
+
+f(x) = Θ(g(x)) iff f(x) = O(g(x)) and g(x) = O(f(x))
+
+There are also little-oh and little-omega (ω) notations representing loose upper and loose lower bounds of a function.
+
+To summarize:
+
+f(x) = O(g(x)) (big-oh) means that the growth rate of f(x) is asymptotically less than or equal to to the growth rate
+of g(x).
+
+f(x) = Ω(g(x)) (big-omega) means that the growth rate of f(x) is asymptotically greater than or equal to the growth rate
+ of g(x)
+
+f(x) = o(g(x)) (little-oh) means that the growth rate of f(x) is asymptotically less than the growth rate of g(x).
+
+f(x) = ω(g(x)) (little-omega) means that the growth rate of f(x) is asymptotically greater than the growth rate of g(x)
+
+f(x) = Θ(g(x)) (theta) means that the growth rate of f(x) is asymptotically equal to the growth rate of g(x)
+
+For a more detailed discussion, you can read the definition on Wikipedia or consult a classic textbook like Introduction
+ to Algorithms by Cormen et al.
+
+
+
+--------------------------------------
+There's a simple way (a trick, I guess) to remember which notation means what.
+
+All of the Big-O notations can be considered to have a bar.
+
+When looking at a Ω, the bar is at the bottom, so it is an (asymptotic) lower bound.
+
+When looking at a Θ, the bar is obviously in the middle. So it is an (asymptotic) tight bound.
+
+When handwriting O, you usually finish at the top, and draw a squiggle. Therefore O(n) is the upper bound of the
+function. To be fair, this one doesn't work with most fonts, but it is the original justification of the names.
+--------------------------------------
+
+one is Big "O"
+
+one is Big Theta
+
+http://en.wikipedia.org/wiki/Big_O_notation
+
+Big O means your algorithm will execute in no more steps than in given expression(n^2)
+
+Big Omega means your algorithm will execute in no fewer steps than in the given expression(n^2)
+
+When both condition are true for the same expression, you can use the big theta notation....
+
+
+--------------------------------------
+
+
+Rather than provide a theoretical definition, which are beautifully summarized here already,
+I'll give a simple example:
+
+Assume the run time of f(i) is O(1). Below is a code fragment whose asymptotic runtime is Θ(n). It always calls the
+function f(...) n times. Both the lower and the upper bound is n.
+
+for(int i=0; i<n; i++){
+    f(i);
+}
+The second code fragment below has the asymptotic runtime of O(n). It calls the function f(...) at most n times.
+The upper bound is n, but the lower bound could be Ω(1) or Ω(log(n)), depending on what happens inside f2(i).
+
+for(int i=0; i<n; i++){
+    if( f2(i) ) break;
+    f(i);
+}
+
+--------------------------------------
+
+
+Theta is a shorthand way of referring to a special situtation where the big O and Omega are the same.
+
+Thus, if one claims The Theta is expression q, then they are also necessarily claiming that Big O is expression q
+and Omega is expression q.
+
+Rough analogy:
+
+If: Theta claims, "That animal has 5 legs." then it follows that: Big O is true ("That animal has less than or equal
+to 5 legs.") and Omega is true("That animal has more than or equal to 5 legs.")
+
+It's only a rough analogy because the expressions aren't necessarily specific numbers, but instead functions of varying
+orders of magnitude such as log(n), n, n^2, (etc.).
+--------------------------------------
+
+A chart could make the previous answers easier to understand:
+
+Θ-Notation - Same order | O-Notation - Upper bound
+Θ(n) - Same order  O(n) - Upper bound
+
+In English,
+
+On the left, note that there is an upper bound and a lower bound that are both of the same order of magnitude
+(i.e. g(n) ). Ignore the constants, and if the upper bound and lower bound have the same order of magnitude, one can
+validly say f(n) = Θ(g(n)) or f(n) is in big theta of g(n).
+
+Starting with the right, the simpler example, it is saying the upper bound g(n) is simply the order of magnitude and
+ignores the constant c (just as all big O notation does).
+
+
+--------------------------------------
+
+
+f(n) belongs to O(n) if exists positive k as f(n)<=k*n
+
+f(n) belongs to Θ(n) if exists positive k1, k2 as k1*n<=f(n)<=k2*n
+
+Wikipedia article on Big O Notation
+
+
+--------------------------------------
+Conclusion: we regard big O, big θ and big Ω as the same thing.
+
+Why? I will tell the reason below:
+
+Firstly, I will clarify one wrong statement, some people think that we just care the worst time complexity, so we always
+ use big O instead of big θ. I will say this man is bullshitting. Upper and lower bound are used to describe one function,
+  not used to describe the time complexity. The worst time function has its upper and lower bound; the best time function
+  has its upper and lower bound too.
+
+In order to explain clearly the relation between big O and big θ, I will explain the relation between big O and
+small o first. From the definition, we can easily know that small o is a subset of big O. For example：
+
+T(n)= n^2 + n, we can say T(n)=O(n^2), T(n)=O(n^3), T(n)=O(n^4). But for small o, T(n)=o(n^2) does not meet the
+definition of small o. So just T(n)=o(n^3), T(n)=o(n^4) are correct for small o. The redundant T(n)=O(n^2) is what?
+It's big θ!
+
+Generally, we say big O is O(n^2), hardly to say T(n)=O(n^3), T(n)=O(n^4). Why? Because we regard big O as big θ
+subconsciously.
+
+Similarly, we also regard big Ω as big θ subconsciously.
+
+In one word, big O, big θ and big Ω are not the same thing from the definitions, but they are the same thing in
+our mouth and brain.
+
+
+--------------------------------------
+
+
+
+
+Using limits
+Let's consider f(n) > 0 and g(n) > 0 for all n. It's ok to consider this, because the fastest real algorithm has
+at least one operation and completes its execution after the start. This will simplify the calculus, because we can use
+the value (f(n)) instead of the absolute value (|f(n)|).
+
+f(n) = O(g(n))
+General:
+
+          f(n)
+0 ≤ lim ──────── < ∞
+    n➜∞   g(n)
+For g(n) = n:
+
+          f(n)
+0 ≤ lim ──────── < ∞
+    n➜∞    n
+Examples:
+
+    Expression               Value of the limit
+------------------------------------------------
+n        = O(n)                      1
+1/2*n    = O(n)                     1/2
+2*n      = O(n)                      2
+n+log(n) = O(n)                      1
+n        = O(n*log(n))               0
+n        = O(n²)                     0
+n        = O(nⁿ)                     0
+Counterexamples:
+
+    Expression                Value of the limit
+-------------------------------------------------
+n        ≠ O(log(n))                 ∞
+1/2*n    ≠ O(sqrt(n))                ∞
+2*n      ≠ O(1)                      ∞
+n+log(n) ≠ O(log(n))                 ∞
+f(n) = Θ(g(n))
+General:
+
+          f(n)
+0 < lim ──────── < ∞
+    n➜∞   g(n)
+For g(n) = n:
+
+          f(n)
+0 < lim ──────── < ∞
+    n➜∞    n
+Examples:
+
+    Expression               Value of the limit
+------------------------------------------------
+n        = Θ(n)                      1
+1/2*n    = Θ(n)                     1/2
+2*n      = Θ(n)                      2
+n+log(n) = Θ(n)                      1
+Counterexamples:
+
+    Expression                Value of the limit
+-------------------------------------------------
+n        ≠ Θ(log(n))                 ∞
+1/2*n    ≠ Θ(sqrt(n))                ∞
+2*n      ≠ Θ(1)                      ∞
+n+log(n) ≠ Θ(log(n))                 ∞
+n        ≠ Θ(n*log(n))               0
+n        ≠ Θ(n²)                     0
+n        ≠ Θ(nⁿ)                     0
+
+
+======================================
+
+
+Big-O Notation - What is it good for?
+http://www.perlmonks.org/?node_id=573138
+
+======================================
+
+https://stackoverflow.com/questions/487258/what-is-a-plain-english-explanation-of-big-o-notation/50288253#50288253
+Definition :- Big O notation is a notation which says how a algorithm performance will perform if the data input
+ increases.
+
+When we talk about algorithms there are 3 important pillars Input , Output and Processing of algorithm. Big O is
+symbolic notation which says if the data input is increased in what rate will the performance vary of the algorithm
+ processing.
+
+I would encourage you to see this youtube video which explains Big O Notation in depth with code examples.
+
+Algorithm basic pillars
+
+So for example assume that a algorithm takes 5 records and the time required for processing the same is 27 seconds.
+ Now if we increase the records to 10 the algorithm takes 105 seconds.
+
+In simple words the time taken is square of the number of records. We can denote this by O(n ^ 2). This symbolic
+ representation is termed as Big O notation.
+
+Now please note the units can be anything in inputs it can be bytes , bits number of records , the performance can be
+measured in any unit like second , minutes , days and so on. So its not the exact unit but rather the relationship.
+
+Big O symbols
+
+For example look at the below function "Function1" which takes a collection and does processing on the first record.
+Now for this function the performance will be same irrespective you put 1000 , 10000 or 100000 records. So we can
+ denote it by O(1).
+
+void Function1(List<string> data)
+{
+string str = data[0];
+}
+Now see the below function "Function2()". In this case the processing time will increase with number of records.
+We can denote this algorithm performance using O(n).
+
+void Function2(List<string> data)
+        {
+            foreach(string str in data)
+            {
+                if (str == "shiv")
+                {
+                    return;
+                }
+            }
+        }
+When we see a Big O notation for any algorithm we can classify them in to three categories of performance :-
+
+Log and constant category :- Any developer would love to see their algorithm performance in this category.
+Linear :- Developer will not want to see algorithms in this category , until its the last option or the only option left.
+Exponential :- This is where we do not want to see our algorithms and a rework is needed.
+So by looking at Big O notation we categorize good and bad zones for algorithms.
+
+Bog O classification
+
+I would recommend you to watch this 10 minutes video which discusses Big O with sample code
+
+https://www.youtube.com/watch?v=k6kxtzICG_g
+
+======================================
+
+
+2.4. An Anagram Detection Example
+http://interactivepython.org/courselib/static/pythonds/AlgorithmAnalysis/AnAnagramDetectionExample.html
+--------------------------------------
+(A) O(n)
+(B) O(n^2)
+(C) O(log n)
+(D) O(n^3)
+
+
+--------------------------------------
+Q-28: Given the following code fragment, what is its Big-O running time?
+test = 0
+for i in range(n):
+   for j in range(n):
+      test = test + i * j
+(B) O(n^2)
+Correct! A singly nested loop like this is O(n^2)
+
+--------------------------------------
+Q-29: Given the following code fragment what is its Big-O running time?
+test = 0
+for i in range(n):
+   test = test + 1
+
+for j in range(n):
+   test = test - 1
+(A) O(n)
+Correct! Even though there are two loops they are not nested. You might think of this as O(2n) but we can ignore the constant 2.
+--------------------------------------
+Q-30: Given the following code fragment what is its Big-O running time?
+i = n
+while i > 0:
+   k = 2 + 2
+   i = i // 2
+(C) O(log n)
+Correct! The value of i is cut in half each time through the loop so it will only take log n iterations.
+
+
+======================================
+
+Python Algorithm: Mastering Basic Algorithm in the Python Language
+Author: Magnus Lie Hetland
+
+1-2. Find a way of checking whether two strings are anagrams of each other (such as "debit card" and "bad credit").
+How well do you think your solution scales? Can you think of a naïve solution that will scale poorly?
+
+1-2. A simple and quite scalable solution would be to sort the characters in each string and compare the results. (In
+theory, counting the character frequencies, possibly using collections.Counter, would scale even better.) A really
+poor solution would be to compare all possible orderings of one string with the other. I can’t overstate how poor this
+solution is; in fact, algorithms don’t get much worse than this. Feel free to code it up and see how large anagrams you
+can check. I bet you won’t get far.
+
+======================================
+
+https://docs.python.org/3.7/library/collections.html#collections.Counter
+
+
+8.3.2. Counter objects
+A counter tool is provided to support convenient and rapid tallies. For example:
+
+>>>
+>>> # Tally occurrences of words in a list
+>>> cnt = Counter()
+>>> for word in ['red', 'blue', 'red', 'green', 'blue', 'blue']:
+...     cnt[word] += 1
+>>> cnt
+Counter({'blue': 3, 'red': 2, 'green': 1})
+
+>>> # Find the ten most common words in Hamlet
+>>> import re
+>>> words = re.findall(r'\w+', open('hamlet.txt').read().lower())
+>>> Counter(words).most_common(10)
+[('the', 1143), ('and', 966), ('to', 762), ('of', 669), ('i', 631),
+ ('you', 554),  ('a', 546), ('my', 514), ('hamlet', 471), ('in', 451)]
+
+
+======================================
+
+
+
+
+
+
+======================================
+
+
+
