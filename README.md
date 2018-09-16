@@ -21,3 +21,8 @@ Continue reading at
 
 ======================================
 
+Run the entire test suite with
+the following command
+(venv) $ python tests.py
+
+======================================

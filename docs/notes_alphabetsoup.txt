@@ -209,11 +209,9 @@ https://faculty.math.illinois.edu/~hildebr/595ama/ama-ch2.pdf
 ======================================
 ======================================
 
-
-
-
-
-
+Run the entire test suite with
+the following command
+(venv) $ python tests.py
 
 ======================================
-
+======================================
