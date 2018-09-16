@@ -71,7 +71,7 @@ def alphabetsoup():
         letters = form.letters.data
 
         cooking = MainApp(message, letters)
-        showme = cooking.hasmessage()
+        showme = cooking.has_message()
 
         flash('My message is in the soup: {}'.format(showme))
         # return redirect(url_for('index'))

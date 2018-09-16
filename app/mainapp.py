@@ -86,10 +86,10 @@ class MainApp:
 
 if __name__ == '__main__':
     # message = 'fkijdff'
-    message = "hello, world!"
+    message = "Hello, World!"
     # letters = 'cvjolalgnfkdbooaslldfgDFGDFglsidjfokasdf'
     # letters = 'fkijdff'
-    letters = 'helloworldfoospam'
+    letters = 'HelloWorldfoospamh'
 
     print(message)
     print(letters)
