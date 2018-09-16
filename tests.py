@@ -28,10 +28,17 @@ class UserModelCase(unittest.TestCase):
 
 class MainAppCase(unittest.TestCase):
     def test_has_message(self):
-        message = "Hello, World!"
-        letters = 'startHelloWorldfoospamh'
+        # message = 'fkijdff'
+        # message = "Hello, World!"
+        # letters = 'cvjolalgnfkdbooaslldfgDFGDFglsidjfokasdf'
+        # letters = 'fkijdff'
+        # letters = 'startHelloWorldfoospamh'
+        message = "HelloWorldHH"
+        letters = 'startHeoWordfoospamHh'
         cooking = MainApp(message, letters)
-        self.assertTrue(cooking.has_message())
+        # self.assertTrue(cooking.has_message())
+        self.assertFalse(cooking.has_message())
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
