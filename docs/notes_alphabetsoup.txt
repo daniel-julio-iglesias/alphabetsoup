@@ -14,8 +14,19 @@ It is wrapped into a Flask Web Framework.
 
 ======================================
 
+Installation Steps
+
+======================================
+
 Proceed with the next commands
 from your OS Command Line
+=====================================
+
+If necessary
+Setup your environment variables for Proxy:
+
+http_proxy: http://username:password@Proxyadresse:Proxyport
+https_proxy: https://username:password@Proxyadresse:Proxyport
 
 ======================================
 
@@ -30,11 +41,29 @@ $ git clone https://github.com/daniel-julio-iglesias/alphabetsoup
 
 =====================================
 
-Setup your environment variables for Proxy:
+You can test the application from command line
+without web-framework implementation
+from root application directory
+.../alphabetsoup/
 
-http_proxy: http://username:password@Proxyadresse:Proxyport
-https_proxy: https://username:password@Proxyadresse:Proxyport
+...go to ".../alphabetsoup/app" directory...
 
+$ cd app/
+$ python mainapp.py
+
+... or you can work rom web-browser
+proceeding with the next commands ....
+
+======================================
+
+Create the virtualenv
+
+In case the application root directory doesn't exist...
+$ mkdir alphabetsoup
+... then ...
+
+$ cd alphabetsoup
+$ python3 -m venv venv
 
 ======================================
 Activate virtualenv
@@ -85,20 +114,15 @@ On MS Windows
 (venv) $ flask run
 
 ..register your user...
-..test introducing file name "01.txt" ...
 
-The below initial project notes are from my exercises based on
-The Flask Mega-Tutorial
-https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world
-
-Enjoy it and please, let me know any comments to make it better/useful.
-Thank you.
-
-
+..test introducing:
+ - Message: "Hello, World!"
+ - Letters: 'startHelloWorldfoospamh'
+...
 
 ======================================
 
-Run the application
+Run the web application again and again ...
 
 on Linux
 (venv) $ export FLASK_APP=alphabetsoup.py
@@ -110,6 +134,12 @@ on MS Windows
 
 URL: http://localhost:5000/
 URL: http://localhost:5000/index
+
+======================================
+
+or ...
+(venv) $ cd app/
+(venv) $ python mainapp.py
 
 ======================================
 ======================================
