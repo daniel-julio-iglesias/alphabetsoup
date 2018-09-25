@@ -62,6 +62,26 @@ class MainApp:
     - The algorithm do not need optimisation as for big data.
     - TODO: Needed to test with hyper-big input data for message length.
 
+
+    - TODO: see the possibility to apply Binary Search algorithm
+    https://en.wikipedia.org/wiki/Binary_search_algorithm
+    In computer science, binary search, also known as half-interval search,[1] logarithmic search,[2] or binary chop,[3]
+    is a search algorithm that finds the position of a target value within a sorted array
+    Binary search compares the target value to the middle element of the array. If they are not equal, the half in which
+    the target cannot lie is eliminated and the search continues on the remaining half, again taking the middle element
+    to compare to the target value, and repeating this until the target value is found. If the search ends with the
+    remaining half being empty, the target is not in the array.
+    Even though the idea is simple, implementing binary search correctly requires attention to some subtleties about
+    its exit conditions and midpoint calculation.
+    Binary search runs in logarithmic time in the worst case, making O(log n) comparisons, where n is the number of
+    elements in the array, the O is Big O notation, and log is the logarithm. Binary search takes constant (O(1)) space,
+    meaning that the space taken by the algorithm is the same for any number of elements in the array.[6] Binary search
+    is faster than linear search except for small arrays, but the array must be sorted first. Although specialized
+    data structures designed for fast searching, such as hash tables, can be searched more efficiently,
+    binary search applies to a wider range of problems.
+
+
+
     Disclaimer: Do not use this function in production. Not all the input and output cases were tested.
     Use at your own risk.
     """
@@ -133,14 +153,17 @@ class MainApp:
 
 if __name__ == '__main__':
     # Test 1 --> False
-    message = "HelloWorldHH"
-    letters = 'startHeoWordfoospamHh'
+    # message = "HelloWorldHH"
+    # letters = 'startHeoWordfoospamHh'
+
     # Test 2 --> True
     # message = "HelloWorldHH"
     # letters = 'startHelloWorldfooHHspamHh'
+
     # Test 3 --> True plus double letters bowl
     # message = "HelloWorldHH"
     # letters = 'startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh'
+
     # Test 4 --> True plus double in message and bowl
     # message = """
     #     HelloWorldHHHelloWorldHH
@@ -148,6 +171,7 @@ if __name__ == '__main__':
     # letters = """
     #     startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh
     #     """
+
     # Test 5 --> True plus in message and "big"  bowl (about 1024)
     # message = """
     # HelloWorldHHHelloWorldHH
@@ -164,6 +188,7 @@ if __name__ == '__main__':
     # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
     # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh
     # """
+
     # Test 6 --> True plus "big"  in message (about 1024) and "big"  bowl (about 1024)
     # message = """
     #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
@@ -190,6 +215,7 @@ if __name__ == '__main__':
     #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
     #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh
     #    """
+
     # Test 7 --> True plus "bigbig"  in message (about 1024) and "bigbig"  bowl (about 1024)
     # message = """
     #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
@@ -262,9 +288,12 @@ if __name__ == '__main__':
     #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
     #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh
     #        """
+
     # Test 8 --> True plus "bigbig"  in message (about 4000) and "bigbig"  bowl (about 9500)
+
     # Test 9 --> REUSED the block to add double block
     #             -- True plus "bigbig"  in message (about 7800) and "bigbig"  bowl (about 19000)
+
     # Test ... for other tests see the table of results in the Class Comment Documentation at the top of this file.
     message = """
             HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
