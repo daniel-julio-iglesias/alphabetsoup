@@ -1,5 +1,33 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+"""
+Alphabet soup
+
+Everyone loves alphabet soup.  And of course,
+you want to know if you can construct a message
+from the letters found in your bowl.
+
+Your Task:
+
+Write a function that takes as input two strings:
+1. the message you want to write
+2. all the letters found in your bowl of alphabet soup.
+
+Assumptions:
+- It may be a very large bowl of soup containing many letters.
+- There is no guarantee that each letter occurs a similar number of times -
+indeed some letters might be missing entirely.
+- The letters are ordered randomly.
+
+The function should determine if you can write your message with the letters
+found in your bowl of soup. The function should return True or False accordingly.
+
+Try to make your function efficient.  Please use Big-O notation to explain how long
+it takes your function to run in terms of the length of your message (m) and the number
+of letters in your bowl of soup (s).
+"""
+
 from collections import Counter
 import cProfile, pstats
 
@@ -9,10 +37,10 @@ class MainApp:
     Steps overview:
     1. We do a cleaning process getting rid of punctuations and leaving only letters (or numbers) in the input strings.
     2. Apply the matching method on the strings
-    3. Strings are converted into Multi-Sets
-    4. Reuse Multi-Sets capabilities (in Python -- similar to a pseudo-code --)
+    3a. Method 1: Strings are converted into Multi-Sets.
+    Reuse Multi-Sets capabilities (in Python -- similar to a pseudo-code --)
     for matching the existence of each element from "message to write" into "the bowl with alphabet soup"
-    5. Returning True if the letters in message exist in the alphabet bowl, otherwise return False.
+    4. Returning True if the letters in message exist in the alphabet bowl, otherwise return False.
 
     Big-O Notation / Analysis: (Which one is the most representative?)
     (A) O(n)
@@ -61,25 +89,6 @@ class MainApp:
         --   O(m)
     - The algorithm do not need optimisation as for big data.
     - TODO: Needed to test with hyper-big input data for message length.
-
-
-    - TODO: see the possibility to apply Binary Search algorithm
-    https://en.wikipedia.org/wiki/Binary_search_algorithm
-    In computer science, binary search, also known as half-interval search,[1] logarithmic search,[2] or binary chop,[3]
-    is a search algorithm that finds the position of a target value within a sorted array
-    Binary search compares the target value to the middle element of the array. If they are not equal, the half in which
-    the target cannot lie is eliminated and the search continues on the remaining half, again taking the middle element
-    to compare to the target value, and repeating this until the target value is found. If the search ends with the
-    remaining half being empty, the target is not in the array.
-    Even though the idea is simple, implementing binary search correctly requires attention to some subtleties about
-    its exit conditions and midpoint calculation.
-    Binary search runs in logarithmic time in the worst case, making O(log n) comparisons, where n is the number of
-    elements in the array, the O is Big O notation, and log is the logarithm. Binary search takes constant (O(1)) space,
-    meaning that the space taken by the algorithm is the same for any number of elements in the array.[6] Binary search
-    is faster than linear search except for small arrays, but the array must be sorted first. Although specialized
-    data structures designed for fast searching, such as hash tables, can be searched more efficiently,
-    binary search applies to a wider range of problems.
-
 
 
     Disclaimer: Do not use this function in production. Not all the input and output cases were tested.
@@ -149,6 +158,56 @@ class MainApp:
             if letters_c[letter] < 0:
                 return False
         return True
+
+    def is_message_in_letters_method_2(self, message, letters):
+        """Algorithm method 2:
+
+        My own algorithm ...
+        """
+        return True
+
+    def is_message_in_letters_method_3(self, message, letters):
+        """Algorithm method 3:
+        Using similar algorithm as for Anagram Detection Solution 1 at:
+        http://interactivepython.org/courselib/static/pythonds/AlgorithmAnalysis/AnAnagramDetectionExample.html
+
+        "(...)Solution 1: Checking Off
+        Our first solution to the anagram problem will check to see that each character in the first string actually
+        occurs in the second. If it is possible to “checkoff” each character, then the two strings must be anagrams.
+        Checking off a character will be accomplished by replacing it with the special Python value None. However,
+        since strings in Python are immutable, the first step in the process will be to convert the second string to a
+        list. Each character from the first string can be checked against the characters in the list and if found,
+        checked off by replacement.(...)"
+
+        My contribution:
+        - Adding an test for length of strings
+
+        """
+        print("Message length: {}".format(len(message)))
+        print("Number of letters: {}".format(len(letters)))
+
+        alist = list(letters)
+
+        pos1 = 0
+        stillOK = True
+
+        while pos1 < len(message) and stillOK:
+            pos2 = 0
+            found = False
+            while pos2 < len(alist) and not found:
+                if s1[pos1] == alist[pos2]:
+                    found = True
+                else:
+                    pos2 = pos2 + 1
+
+            if found:
+                alist[pos2] = None
+            else:
+                stillOK = False
+
+            pos1 = pos1 + 1
+
+        return stillOK
 
 
 if __name__ == '__main__':
