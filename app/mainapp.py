@@ -30,6 +30,21 @@ of letters in your bowl of soup (s).
 
 from collections import Counter
 import cProfile, pstats
+import os
+
+
+def etime():
+    """See how much user and system time this process has used
+    so far and return the sum.
+
+    To measure the elapsed time of a function you can call etime twice and compute the difference:
+    start = etime()
+    # put the code you want to measure here
+    end = etime()
+    elapsed = end - start
+    """
+    user, sys, chuser, chsys, real = os.times()
+    return user+sys
 
 
 class MainApp:
@@ -62,18 +77,22 @@ class MainApp:
     - The solution has a number of iterations, none of them is nested.
 
 
-            Test Nr.   |       m   |       s   |    time[seconds]
-            -----------------------------------------------------
-                 1     |      12   |      21   |       0.000
-                 2     |      12   |      26   |       0.000
-                 3     |      12   |      52   |       0.000
-                 4     |      24   |     104   |       0.000
-                 5     |      24   |    1040   |       0.000
-                 6     |    1056   |    1040   |       0.000
-                 7     |    2016   |    4784   |       0.001
-                 8     |    3936   |    3936   |       0.003
-                 9     |    7776   |   18824   |       0.005
-                10     |   15456   |   37544   |       0.007
+            Test Nr.   |       m   |       s   |    time[seconds]   |   time [seconds]
+                       |           |           |     cProfile       |     elapsed time
+            ---------------------------------------------------------------------------
+                 1     |      12   |      21   |       0.000        |
+                 2     |      12   |      26   |       0.000        |
+                 3     |      12   |      52   |       0.000        |
+                 4     |      24   |     104   |       0.000        |
+                 5     |      24   |    1040   |       0.000        |
+                 6     |    1056   |    1040   |       0.000        |
+                 7     |    2016   |    4784   |       0.001        |
+                 8     |    3936   |    3936   |       0.003        |
+                 9     |    7776   |   18824   |       0.005        |
+                10     |   15456   |   37544   |       0.007        |
+
+                10     |   15456   |   37544   |       0.124        |     0.015625
+                10     |   15456   |   37544   |       0.007        |     0.015625
 
     - Detected there is needed about twice and a half (x2.4) letters in bowl more than
      in the message to obtain True results:
@@ -89,7 +108,7 @@ class MainApp:
         --   O(m)
     - The algorithm do not need optimisation as for big data.
     - TODO: Needed to test with hyper-big input data for message length.
-
+    - TODO: Order of growth - see Think Complexity
 
     Disclaimer: Do not use this function in production. Not all the input and output cases were tested.
     Use at your own risk.
@@ -195,7 +214,7 @@ class MainApp:
             pos2 = 0
             found = False
             while pos2 < len(alist) and not found:
-                if s1[pos1] == alist[pos2]:
+                if message[pos1] == alist[pos2]:
                     found = True
                 else:
                     pos2 = pos2 + 1
@@ -882,11 +901,18 @@ if __name__ == '__main__':
             """
 
     cooking = MainApp(message, letters)
+
     # Using included profiler
     cProfile.run('cooking.has_message()', 'alphabetsoup.profile')
     p = pstats.Stats('alphabetsoup.profile')
     p.print_stats()
 
+    # Using Elapsed Time calculation (User + System)
+    start = etime()
+    # put the code you want to measure here
     show_me = cooking.has_message()
+    end = etime()
+    elapsed = end - start
+    print("Elapsed Time: {}".format(elapsed))
 
     print('My message is in the soup: {}'.format(show_me))

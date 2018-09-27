@@ -959,6 +959,26 @@ Counter({'blue': 3, 'red': 2, 'green': 1})
 
 ======================================
 
+A simple way to measure the run time of a program is to use the function times in the os
+module, which returns a tuple of floats indicating the time your process has used (see the
+documentation for details). I use a function, etime, which returns the sum of “user time”
+and “system time” which is usually what we care about for performance measurement:
+
+import os
+def etime():
+    """See how much user and system time this process has used
+    so far and return the sum."""
+    user, sys, chuser, chsys, real = os.times()
+    return user+sys
+
+To measure the elapsed time of a function you can call etime twice and compute the difference:
+start = etime()
+# put the code you want to measure here
+end = etime()
+elapsed = end - start
+
+Alternatively, if you use IPython, you can use the timeit command. See ipython.scipy.
+org.
 
 
 ======================================
