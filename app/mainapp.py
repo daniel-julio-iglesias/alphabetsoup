@@ -81,7 +81,7 @@ class MainApp:
             Test Nr.   |       m   |       s   |    time[seconds]   |   time [seconds]
                        |           |           |     cProfile       |     elapsed time
             ---------------------------------------------------------------------------
-                 1     |      12   |      21   |       0.000        |
+                 1     |      12   |      21   |       0.000        |          0.0
                  2     |      12   |      26   |       0.000        |
                  3     |      12   |      52   |       0.000        |
                  4     |      24   |     104   |       0.000        |
@@ -277,104 +277,9 @@ if __name__ == '__main__':
     # """
 
     # Test 6 --> True plus "big"  in message (about 1024) and "big"  bowl (about 1024)
-    # message = """
-    #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #    HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH
-    #    """
-    # letters = """
-    #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #    startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh
-    #    """
+
 
     # Test 7 --> True plus "bigbig"  in message (about 1024) and "bigbig"  bowl (about 1024)
-    # message = """
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH\
-    #        HelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHHHelloWorldHH
-    #        """
-    # letters = """
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    #        startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh
-    #        """
 
     # Test 8 --> True plus "bigbig"  in message (about 4000) and "bigbig"  bowl (about 9500)
 
@@ -389,12 +294,16 @@ if __name__ == '__main__':
     # Test 0002
     # filename_msg = "message_input_0002.txt"
     # filename_ltrs = "letters_input_0002.txt"
+    # Test 0003
+    filename_msg = "message_input_0003.txt"
+    filename_ltrs = "letters_input_0003.txt"
+
     # ...
     # Test 0010
     # Test ... for other tests see the table of results in the
     # Class Comment Documentation at the top of this file.
-    filename_msg = "message_input_0010.txt"
-    filename_ltrs = "letters_input_0010.txt"
+    # filename_msg = "message_input_0010.txt"
+    # filename_ltrs = "letters_input_0010.txt"
 
     f_msg = codecs.open(path + filename_msg, 'r', 'utf8')
     f_ltrs = codecs.open(path + filename_ltrs, 'r', 'utf8')
@@ -408,9 +317,9 @@ if __name__ == '__main__':
     cooking = MainApp(message, letters)
 
     # Using included profiler
-    cProfile.run('cooking.has_message()', 'alphabetsoup.profile')
-    p = pstats.Stats('alphabetsoup.profile')
-    p.print_stats()
+    # cProfile.run('cooking.has_message()', 'alphabetsoup.profile')
+    # p = pstats.Stats('alphabetsoup.profile')
+    # p.print_stats()
 
     # Using Elapsed Time calculation (User + System)
     start = etime()
