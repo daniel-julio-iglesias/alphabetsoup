@@ -30,7 +30,7 @@ of letters in your bowl of soup (s).
 
 from collections import Counter
 import cProfile, pstats
-import os
+import os, sys
 import codecs
 
 
@@ -81,12 +81,12 @@ class MainApp:
             Test Nr.   |       m   |       s   |    time[seconds]   |   time [seconds]
                        |           |           |     cProfile       |     elapsed time
             ---------------------------------------------------------------------------
-                 1     |      12   |      21   |       0.000        |          0.0
-                 2     |      12   |      26   |       0.000        |
-                 3     |      12   |      52   |       0.000        |
-                 4     |      24   |     104   |       0.000        |
-                 5     |      24   |    1040   |       0.000        |
-                 6     |    1056   |    1040   |       0.000        |
+                 1     |      12   |      21   |       0.000        |          0.0   [False]
+                 2     |      12   |      26   |       0.000        |          0.0   [True]
+                 3     |      12   |      52   |       0.000        |          0.0   [True]
+                 4     |      24   |     104   |       0.000        |          0.0   [True]
+                 5     |      24   |    1058   |       0.000        |          0.0   [True]
+                 6     |    1056   |    1040   |       0.000        |          0.0   [False]
                  7     |    2016   |    4784   |       0.001        |
                  8     |    3936   |    3936   |       0.003        |
                  9     |    7776   |   18824   |       0.005        |
@@ -122,8 +122,10 @@ class MainApp:
         cleaned_message = self.clean_message()
         letters_in_bowl = self.clean_letters()
 
-        print("Message: {}".format(cleaned_message))
-        print("Letters: {}".format(letters_in_bowl))
+        # print("Message: {}".format(cleaned_message))
+        # print("Letters: {}".format(letters_in_bowl))
+        print("Message length: {}".format(len(cleaned_message)))
+        print("Number of letters: {}".format(len(letters_in_bowl)))
 
         method_1 = self.is_message_in_letters_method_1(cleaned_message, letters_in_bowl)
 
@@ -172,8 +174,8 @@ class MainApp:
         >>> c
         Counter({'a': 3, 'b': 0, 'c': -3, 'd': -6})
         """
-        print("Message length: {}".format(len(message)))
-        print("Number of letters: {}".format(len(letters)))
+        # print("Message length: {}".format(len(message)))
+        # print("Number of letters: {}".format(len(letters)))
         message_c = Counter(message)
         letters_c = Counter(letters)
         letters_c.subtract(message_c)
@@ -234,83 +236,66 @@ class MainApp:
 
 
 if __name__ == '__main__':
-    #
-    # Input files:
-    # message_input_0001.txt
-    # letters_input_0001.txt
-
-    # Test 1 --> False
-    # message = "HelloWorldHH"
-    # letters = 'startHeoWordfoospamHh'
-
-    # Test 2 --> True
-    # message = "HelloWorldHH"
-    # letters = 'startHelloWorldfooHHspamHh'
-
-    # Test 3 --> True plus double letters bowl
-    # message = "HelloWorldHH"
-    # letters = 'startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh'
-
-    # Test 4 --> True plus double in message and bowl
-    # message = """
-    #     HelloWorldHHHelloWorldHH
-    #     """
-    # letters = """
-    #     startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh
-    #     """
-
-    # Test 5 --> True plus in message and "big"  bowl (about 1024)
-    # message = """
-    # HelloWorldHHHelloWorldHH
-    # """
-    # letters = """
-    # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh\
-    # startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh
-    # """
-
-    # Test 6 --> True plus "big"  in message (about 1024) and "big"  bowl (about 1024)
-
-
-    # Test 7 --> True plus "bigbig"  in message (about 1024) and "bigbig"  bowl (about 1024)
-
-    # Test 8 --> True plus "bigbig"  in message (about 4000) and "bigbig"  bowl (about 9500)
-
-    # Test 9 --> REUSED the block to add double block
-    #             -- True plus "bigbig"  in message (about 7800) and "bigbig"  bowl (about 19000)
-
     path = ''    # Where input files are located
+    test = 6     # <===  Desired test to run
 
-    # Test 0001
-    # filename_msg = "message_input_0001.txt"
-    # filename_ltrs = "letters_input_0001.txt"
-    # Test 0002
-    # filename_msg = "message_input_0002.txt"
-    # filename_ltrs = "letters_input_0002.txt"
-    # Test 0003
-    filename_msg = "message_input_0003.txt"
-    filename_ltrs = "letters_input_0003.txt"
-
-    # ...
-    # Test 0010
-    # Test ... for other tests see the table of results in the
-    # Class Comment Documentation at the top of this file.
-    # filename_msg = "message_input_0010.txt"
-    # filename_ltrs = "letters_input_0010.txt"
+    if test == 1:
+        # Test 0001  --> False
+        # message = "HelloWorldHH"
+        # letters = 'startHeoWordfoospamHh'
+        filename_msg = "message_input_0001.txt"
+        filename_ltrs = "letters_input_0001.txt"
+    elif test == 2:
+        # Test 0002 --> True
+        # message = "HelloWorldHH"
+        # letters = 'startHelloWorldfooHHspamHh'
+        filename_msg = "message_input_0002.txt"
+        filename_ltrs = "letters_input_0002.txt"
+    elif test == 3:
+        # Test 0003 --> True plus double letters bowl
+        # message = "HelloWorldHH"
+        # letters = 'startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh'
+        filename_msg = "message_input_0003.txt"
+        filename_ltrs = "letters_input_0003.txt"
+    elif test == 4:
+        # Test 0004 --> True plus double in message and bowl
+        filename_msg = "message_input_0004.txt"
+        filename_ltrs = "letters_input_0004.txt"
+    elif test == 5:
+        # Test 0005 --> True plus in message and "big"  bowl (about 1024)
+        filename_msg = "message_input_0005.txt"
+        filename_ltrs = "letters_input_0005.txt"
+    elif test == 6:
+        # Test 0006 --> False plus "big"  in message (about 1024), but more than in bowl,
+        #  and "big"  bowl (about 1024)
+        filename_msg = "message_input_0006.txt"
+        filename_ltrs = "letters_input_0006.txt"
+    elif test == 7:
+        # Test 0007 --> True plus "bigbig"  in message (about 1024) and "bigbig"  bowl (about 1024)
+        filename_msg = "message_input_0007.txt"
+        filename_ltrs = "letters_input_0007.txt"
+    elif test == 8:
+        # Test 0008 --> True plus "bigbig"  in message (about 4000) and "bigbig"  bowl (about 9500)
+        filename_msg = "message_input_0008.txt"
+        filename_ltrs = "letters_input_0008.txt"
+    elif test == 9:
+        # Test 0009 --> REUSED the block to add double block
+        #  -- True plus "bigbig"  in message (about 7800) and "bigbig"  bowl (about 19000)
+        filename_msg = "message_input_0009.txt"
+        filename_ltrs = "letters_input_0009.txt"
+    elif test == 10:
+        # Test 0010
+        # Test ... for other tests see the table of results in the
+        # Class Comment Documentation at the top of this file.
+        filename_msg = "message_input_0010.txt"
+        filename_ltrs = "letters_input_0010.txt"
+    else:
+        sys.exit("Test Number {} Is Not Defined.".format(test))
 
     f_msg = codecs.open(path + filename_msg, 'r', 'utf8')
     f_ltrs = codecs.open(path + filename_ltrs, 'r', 'utf8')
-
     message = f_msg.read()
     letters = f_ltrs.read()
-
     f_msg.close()
     f_ltrs.close()
 
@@ -324,9 +309,11 @@ if __name__ == '__main__':
     # Using Elapsed Time calculation (User + System)
     start = etime()
     # put the code you want to measure here
+    # Note: first run is sometimes 0   (?!)
+    # Needs a second run
     show_me = cooking.has_message()
     end = etime()
     elapsed = end - start
-    print("Elapsed Time: {}".format(elapsed))
 
+    print("Elapsed Time: {}".format(elapsed))
     print('My message is in the soup: {}'.format(show_me))
