@@ -237,7 +237,7 @@ class MainApp:
 
 if __name__ == '__main__':
     path = ''    # Where input files are located
-    test = 6     # <===  Desired test to run
+    test = 5     # <===  Desired test to run
 
     if test == 1:
         # Test 0001  --> False
