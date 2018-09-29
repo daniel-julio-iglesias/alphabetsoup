@@ -87,9 +87,9 @@ class MainApp:
                  4     |      24   |     104   |       0.000        |          0.0   [True]
                  5     |      24   |    1058   |       0.000        |          0.0   [True]
                  6     |    1056   |    1040   |       0.000        |          0.0   [False]
-                 7     |    2016   |    4784   |       0.001        |
-                 8     |    3936   |    3936   |       0.003        |
-                 9     |    7776   |   18824   |       0.005        |
+                 7     |    2056   |    4874   |       0.001        |          0.0   [True]
+                 8     |    3224   |    3224   |       0.003        |          0.0   [False]
+                 9     |    7776   |   18824   |       0.005        |     0.015625   [True]
                 10     |   15456   |   37544   |       0.007        |
 
                 10     |   15456   |   37544   |       0.124        |     0.015625
@@ -237,7 +237,7 @@ class MainApp:
 
 if __name__ == '__main__':
     path = ''    # Where input files are located
-    test = 5     # <===  Desired test to run
+    test = 9      # <===  Desired test to run
 
     if test == 1:
         # Test 0001  --> False
@@ -266,8 +266,8 @@ if __name__ == '__main__':
         filename_msg = "message_input_0005.txt"
         filename_ltrs = "letters_input_0005.txt"
     elif test == 6:
-        # Test 0006 --> False plus "big"  in message (about 1024), but more than in bowl,
-        #  and "big"  bowl (about 1024)
+        # Test 0006 --> False plus "big"  in message (about 1024), but more letters than in
+        #  the "big"  bowl (about 1024)
         filename_msg = "message_input_0006.txt"
         filename_ltrs = "letters_input_0006.txt"
     elif test == 7:
@@ -299,6 +299,7 @@ if __name__ == '__main__':
     f_msg.close()
     f_ltrs.close()
 
+    print("Test Nr. : {}".format(test))
     cooking = MainApp(message, letters)
 
     # Using included profiler
