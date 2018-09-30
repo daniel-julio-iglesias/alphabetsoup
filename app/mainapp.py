@@ -76,7 +76,11 @@ class MainApp:
         - length of the message (m) and
         - the number of letters in the bowl of soup (s)
     - The solution has a number of iterations, none of them is nested.
+     -ime values was taken from the maximum displayed
     - See the attached statistics.txt file for more details
+
+    - Computer: i7 1.9GHz
+       Filesystem: on HDD
 
     - Detected there is needed about twice and a half (x2.4) letters in bowl more than
      in the message to obtain True results:
@@ -219,9 +223,11 @@ class MainApp:
 
 
 if __name__ == '__main__':
+    """Main function for module test
+    """
     path = ''    # Where input files are located
-    test = 9      # <===  Desired test to run
-    display_cProfile = 2    # Display cProfile statistics: 1 - Yes
+    test = 10      # <===  Desired test to run
+    display_cProfile = 1    # Display cProfile statistics: 1 - Yes
 
     if test == 1:
         # Test 0001  --> False
