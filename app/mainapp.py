@@ -32,7 +32,18 @@ and the number of letters in your bowl of soup (s).
 
 Created 1 algorithm and adapted other 2 algorithms copied from
 anagram implementation.
-Pending to adapt a 4th algorithm based in ord('!') function
+
+Method 1 - Using containers (collections.Counter class) matching
+Method 2 - Similar as Anagram - Checking Off
+Method 3 - Similar as Anagram - Sort and Compare
+[Method 4 - DO NOT USE!]
+
+The worst method in time is the method 2 which displays time in 2 or three digits of seconds.
+The best method is the method 3  which maintain time response below 1 sec.
+The method 1 has very flat pattern in terms of time, and also below 1 sec.
+See the attached MS Excel file AlphabetSoutpBig-O.xlsx
+and the comments for each implemented methods.
+
 """
 
 from collections import Counter
