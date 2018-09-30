@@ -179,8 +179,9 @@ class MainApp:
         """Algorithm method 1:
         Using containers (collections.Counter class) matching
         subtract([iterable-or-mapping])
-        Elements are subtracted from an iterable or from another mapping (or counter). Like dict.update()
-        but subtracts counts instead of replacing them. Both inputs and outputs may be zero or negative.
+        Elements are subtracted from an iterable or from another mapping
+        (or counter). Like dict.update() but subtracts counts instead
+        of replacing them. Both inputs and outputs may be zero or negative.
         >>> c = Counter(a=4, b=2, c=0, d=-2)
         >>> d = Counter(a=1, b=2, c=3, d=4)
         >>> c.subtract(d)
@@ -365,8 +366,8 @@ if __name__ == '__main__':
     """Main function for module test
     """
     path = ''     # Where input files are located
-    method = 4    # Tested method
-    test = 2      # <===  Desired iteration test to run
+    method = 1    # Tested method
+    test = 1      # <===  Desired iteration test to run
     display_cProfile = 1   # Display cProfile statistics: 1 - Yes
 
     if test == 1:
