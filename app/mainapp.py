@@ -79,7 +79,7 @@ class MainApp:
      -ime values was taken from the maximum displayed
     - See the attached statistics.txt file for more details
 
-    - Computer: i7 1.9GHz
+    - Computer: i7 1.8GHz
        Filesystem: on HDD
 
     - Detected there is needed about twice and a half (x2.4) letters in bowl more than
@@ -223,7 +223,7 @@ if __name__ == '__main__':
     """
     path = ''     # Where input files are located
     method = 1    # Tested method
-    test = 1      # <===  Desired test to run
+    test = 2      # <===  Desired iteration test to run
     display_cProfile = 1   # Display cProfile statistics: 1 - Yes
 
     if test == 1:
