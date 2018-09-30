@@ -58,12 +58,16 @@ def etime():
 class MainApp:
     """This is a Main Application  for Alphabet Soup Puzzle
     Steps overview:
-    1. We do a cleaning process getting rid of punctuations and leaving only letters (or numbers) in the input strings.
+    1. We do a cleaning process getting rid of punctuations and leaving only
+     letters (or numbers) in the input strings.
     2. Apply the matching method on the strings
     3a. Method 1: Strings are converted into Multi-Sets.
     Reuse Multi-Sets capabilities (in Python -- similar to a pseudo-code --)
     for matching the existence of each element from "message to write" into
     "the bowl with alphabet soup"
+    3b. Method 2: Similar as Anagram implementation - Checking Off
+    3c. Method 3: Similar as Anagram Implementation - Sort and Compare
+    3d. DO NOT USE!!!  Attempt to use Anagram Implementation - Count and Compare
     4. Returning True if the letters in message exist in the alphabet bowl,
     otherwise return False.
 
@@ -73,42 +77,15 @@ class MainApp:
     (C) O(log n)
     (D) O(n^3)
 
-    - Function "is_message_in_letters_method_1"  implements a Compare method
+    - See each function comment for details of implemented methods
+    e.g. "is_message_in_letters_method_1"  implements a Compare method
     of two Multi-Sets, in the way its elements can be duplicated and unordered.
-    - The two input strings are not the same length (m,s).
-    - In the main internal matching cycle, the function immediately interrupts
-    processing and returns False, in case there is an element in message with
-    no matching in the bowl, avoiding processing the whole message.
-    - The worst scenario is when all the message letters are included in the
-    alphabet bowl.
-    - The method is practically based on the frequency of the items in the bowl.
-    - For for Big-O running time there is considered one big cycle to run
-    through two possible variables:
-        - length of the message (m) and
-        - the number of letters in the bowl of soup (s)
-    - The solution has a number of iterations, none of them is nested.
-     -ime values was taken from the maximum displayed
-    - See the attached statistics.txt file for more details
+    - See the attached AlphabetSoutpBig-O.xlsx file for more details
 
     - Computer: i7 1.8GHz
        Filesystem: on HDD
 
-    - Detected there is needed about twice and a half (x2.4) letters in bowl
-    more than in the message to obtain True results:
-       s = 2m ==> s is direct proportional to m. We can ignore 2.
-       Then all the function is simplified to be dependent of one variable:
-       m -- the message length to write.
-    - Another detected fact is that the number of bowl letters doesn't imply
-    a decrement in performance.
-    There is the length of the message which has more influence in performance
-    with the condition to obtain True result -- the worst.
-    - The constant delta increment of message length of twice order (2x)
-    implies a constant increment in time of  twice order (2x)
-    - There is a constant but very small increment of the Time having bigger
-    number of bowl and message letters.
-    - The Big-O running time is of:
-        --   O(m)
-    - The algorithm do not need optimisation as for big data.
+
     - TODO: Needed to test with hyper-big input data for message length.
     - TODO: Order of growth - see Think Complexity
 
@@ -188,8 +165,29 @@ class MainApp:
         >>> c
         Counter({'a': 3, 'b': 0, 'c': -3, 'd': -6})
 
-        This solution is O((m*s))
-        
+        - The two input strings are not the same length (m,s).
+        - In the main internal matching cycle, the function immediately interrupts
+        processing and returns False, in case there is an element in message with
+        no matching in the bowl, avoiding processing the whole message.
+        - The worst scenario is when all the message letters are included in the
+        alphabet bowl.
+        - The method is practically based on the frequency of the items in the bowl.
+        - For for Big-O running time there is considered one big cycle to run
+        through two possible variables:
+            - length of the message (m) and
+            - the number of letters in the bowl of soup (s)
+        - The solution has a number of iterations, none of them is nested.
+        - Time values were taken from the maximum displayed
+
+        The upper frequency amount in created dictionary
+        is dictated by the amount of letters in bowl "s".
+
+        Most dictionary operations and methods are constant time
+
+        This solution is O((1))
+        - The algorithm does not need optimisation as for big data.
+
+        See "alphabet soup time" tab in attached MS Excel
         """
         print("Method 1")
         message_c = Counter(message)
@@ -216,11 +214,15 @@ class MainApp:
         be checked against the characters in the list and if found, checked
         off by replacement.(...)"
 
-        "(...) this solution is O((m*s)^2) (...)"
+        Most list methods are linear
 
-        My contribution:
-        - Testing with the prepared inputs and detecting used
-        resources and time. Reasearch the m and s influence.
+        "(...) each of the n characters in "message - m" will cause an iteration
+        through up to "s" characters in the list from "bowl"  (...)"
+
+
+        "(...) this solution is O((m*s)) (...)"
+        - The algorithm does need optimisation as for big data.
+
         """
         print("Method 2")
         alist = list(letters)
@@ -260,13 +262,13 @@ class MainApp:
         this solution. Again, in Python we can use the built-in sort method
         on lists by simply converting each string to a list at the start.(...)"
 
-        "(...) this solution is O((m*s)^2) (...)"
+        Most list methods are linear
+        "(...) Sorting is O(n log n) (...)"
 
-        My contribution:
-        - Adapting the algorithm.
-        Testing with the prepared inputs and detecting used
-        resources and time. Reasearch the m and s influence.
-        """
+        this solution is O(m log m + s log s)
+        - The algorithm does not need optimisation as for big data.
+
+       """
         print("Method 3")
         alist1 = list(message)
         alist2 = list(letters)
@@ -335,10 +337,6 @@ class MainApp:
         scientist, when given a choice of algorithms, it will be up to you to
         determine the best use of computing resources given a particular
         problem. (...)"
-
-        My contribution:
-        - Testing with the prepared inputs and detecting used
-        resources and time. Reasearch the m and s influence.
         """
         print("Method 4")
         c1 = [0]*94
@@ -361,6 +359,7 @@ class MainApp:
                 stillOK = False
 
         return stillOK
+
 
 if __name__ == '__main__':
     """Main function for module test
