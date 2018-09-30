@@ -101,9 +101,10 @@ class MainApp:
     Disclaimer: Do not use this function in production. Not all the input and output cases were tested.
     Use at your own risk.
     """
-    def __init__(self, message, letters):
+    def __init__(self, message, letters, method):
         self.message = message
         self.letters = letters
+        self.method = method
 
     def has_message(self):
         cleaned_message = self.clean_message()
@@ -114,14 +115,14 @@ class MainApp:
         print("Message length: {}".format(len(cleaned_message)))
         print("Number of letters: {}".format(len(letters_in_bowl)))
 
-        # method_1 = self.is_message_in_letters_method_1(cleaned_message, letters_in_bowl)
-        method_2 = self.is_message_in_letters_method_2(cleaned_message, letters_in_bowl)
-        # method_3 = self.is_message_in_letters_method_3(cleaned_message, letters_in_bowl)
-
-        # return method_1, method_2, method_3
-        # return method_1, method_2
-        # return method_1
-        return method_2
+        if self.method == 1:
+            method_1 = self.is_message_in_letters_method_1(cleaned_message, letters_in_bowl)
+            return method_1
+        elif self.method == 2:
+            method_2 = self.is_message_in_letters_method_2(cleaned_message, letters_in_bowl)
+            return method_2
+        else:
+            sys.exit("Method Number {} Is Not Defined.".format(method))
 
     def clean_string(self, input_string):
         """get rid of punctuation
@@ -220,8 +221,9 @@ class MainApp:
 if __name__ == '__main__':
     """Main function for module test
     """
-    path = ''    # Where input files are located
-    test = 3      # <===  Desired test to run
+    path = ''     # Where input files are located
+    method = 1    # Tested method
+    test = 1      # <===  Desired test to run
     display_cProfile = 1   # Display cProfile statistics: 1 - Yes
 
     if test == 1:
@@ -237,41 +239,53 @@ if __name__ == '__main__':
         filename_msg = "message_input_0002.txt"
         filename_ltrs = "letters_input_0002.txt"
     elif test == 3:
-        # Test 0003 --> True plus double letters bowl
+        # Test 0003 --> True -
+        # double letters bowl
         # message = "HelloWorldHH"
         # letters = 'startHelloWorldfooHHspamHhstartHelloWorldfooHHspamHh'
         filename_msg = "message_input_0003.txt"
         filename_ltrs = "letters_input_0003.txt"
     elif test == 4:
-        # Test 0004 --> True plus double in message and bowl
+        # Test 0004 --> True -
+        # double in message and bowl
         filename_msg = "message_input_0004.txt"
         filename_ltrs = "letters_input_0004.txt"
     elif test == 5:
-        # Test 0005 --> True plus in message and "big"  bowl (about 1024)
+        # Test 0005 --> True -
+        # in message and "big"  bowl (about 1024)
         filename_msg = "message_input_0005.txt"
         filename_ltrs = "letters_input_0005.txt"
     elif test == 6:
-        # Test 0006 --> False plus "big"  in message (about 1024), but more letters than in
-        #  the "big"  bowl (about 1024)
+        # Test 0006 --> False -
+        # "big"  in message (about 1024),
+        # but less letters than in
+        # the "big"  bowl 
         filename_msg = "message_input_0006.txt"
         filename_ltrs = "letters_input_0006.txt"
     elif test == 7:
-        # Test 0007 --> True plus "bigbig"  in message (about 1024) and "bigbig"  bowl (about 1024)
+        # Test 0007 --> True -
+        # "bigbig"  in message (about 2000)
+        # and "2x bigger"  bowl (about 5000)
         filename_msg = "message_input_0007.txt"
         filename_ltrs = "letters_input_0007.txt"
     elif test == 8:
-        # Test 0008 --> True plus "bigbig"  in message (about 4000) and "bigbig"  bowl (about 9500)
+        # Test 0008 --> False -
+        # "bigbig"  in message (about 3000)
+        # and "same"  bowl 
         filename_msg = "message_input_0008.txt"
         filename_ltrs = "letters_input_0008.txt"
     elif test == 9:
-        # Test 0009 --> REUSED the block to add double block
-        #  -- True plus "bigbig"  in message (about 7800) and "bigbig"  bowl (about 19000)
+        # Test 0009 --> True
+        # REUSED the block to add double block
+        # "bigbig"  in message (about 8000)
+        # and "bigbig"  bowl (about 19000)
         filename_msg = "message_input_0009.txt"
         filename_ltrs = "letters_input_0009.txt"
     elif test == 10:
-        # Test 0010
-        # Test ... for other tests see the table of results in the
-        # Class Comment Documentation at the top of this file.
+        # Test 0010  --> True
+        # REUSED the block to add double block
+        # "bigbig"  in message (about 15600)
+        #  and "bigbig" bowl (about 38000)
         filename_msg = "message_input_0010.txt"
         filename_ltrs = "letters_input_0010.txt"
     else:
@@ -285,7 +299,7 @@ if __name__ == '__main__':
     f_ltrs.close()
 
     print("Test Nr. : {}".format(test))
-    cooking = MainApp(message, letters)
+    cooking = MainApp(message, letters, method)
 
     if display_cProfile == 1:
         # Using included profiler
