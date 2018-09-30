@@ -76,24 +76,7 @@ class MainApp:
         - length of the message (m) and
         - the number of letters in the bowl of soup (s)
     - The solution has a number of iterations, none of them is nested.
-
-
-            Test Nr.   |       m   |       s   |    time[seconds]   |   time [seconds]
-                       |           |           |     cProfile       |     elapsed time
-            ---------------------------------------------------------------------------
-                 1     |      12   |      21   |       0.000        |          0.0   [False]
-                 2     |      12   |      26   |       0.000        |          0.0   [True]
-                 3     |      12   |      52   |       0.000        |          0.0   [True]
-                 4     |      24   |     104   |       0.000        |          0.0   [True]
-                 5     |      24   |    1058   |       0.000        |          0.0   [True]
-                 6     |    1056   |    1040   |       0.000        |          0.0   [False]
-                 7     |    2056   |    4874   |       0.001        |          0.0   [True]
-                 8     |    3224   |    3224   |       0.003        |          0.0   [False]
-                 9     |    7776   |   18824   |       0.005        |     0.015625   [True]
-                10     |   15456   |   37544   |       0.007        |
-
-                10     |   15456   |   37544   |       0.124        |     0.015625
-                10     |   15456   |   37544   |       0.007        |     0.015625
+    - See the attached statistics.txt file for more details
 
     - Detected there is needed about twice and a half (x2.4) letters in bowl more than
      in the message to obtain True results:
@@ -237,7 +220,8 @@ class MainApp:
 
 if __name__ == '__main__':
     path = ''    # Where input files are located
-    test = 8      # <===  Desired test to run
+    test = 9      # <===  Desired test to run
+    display_cProfile = 2    # Display cProfile statistics: 1 - Yes
 
     if test == 1:
         # Test 0001  --> False
@@ -302,10 +286,11 @@ if __name__ == '__main__':
     print("Test Nr. : {}".format(test))
     cooking = MainApp(message, letters)
 
-    # Using included profiler
-    # cProfile.run('cooking.has_message()', 'alphabetsoup.profile')
-    # p = pstats.Stats('alphabetsoup.profile')
-    # p.print_stats()
+    if display_cProfile == 1:
+        # Using included profiler
+        cProfile.run('cooking.has_message()', 'alphabetsoup.profile')
+        p = pstats.Stats('alphabetsoup.profile')
+        p.print_stats()
 
     # Using Elapsed Time calculation (User + System)
     start = etime()
