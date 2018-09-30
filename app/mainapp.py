@@ -166,6 +166,7 @@ class MainApp:
         >>> c
         Counter({'a': 3, 'b': 0, 'c': -3, 'd': -6})
         """
+        print("Method 1")
         message_c = Counter(message)
         letters_c = Counter(letters)
         letters_c.subtract(message_c)
@@ -191,6 +192,7 @@ class MainApp:
         - Nothing, just testing with the prepared inputs
 
         """
+        print("Method 2")
         alist = list(letters)
 
         pos1 = 0
@@ -219,8 +221,8 @@ if __name__ == '__main__':
     """Main function for module test
     """
     path = ''    # Where input files are located
-    test = 2      # <===  Desired test to run
-    display_cProfile = 1    # Display cProfile statistics: 1 - Yes
+    test = 3      # <===  Desired test to run
+    display_cProfile = 1   # Display cProfile statistics: 1 - Yes
 
     if test == 1:
         # Test 0001  --> False
