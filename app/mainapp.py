@@ -114,9 +114,14 @@ class MainApp:
         print("Message length: {}".format(len(cleaned_message)))
         print("Number of letters: {}".format(len(letters_in_bowl)))
 
-        method_1 = self.is_message_in_letters_method_1(cleaned_message, letters_in_bowl)
+        # method_1 = self.is_message_in_letters_method_1(cleaned_message, letters_in_bowl)
+        method_2 = self.is_message_in_letters_method_2(cleaned_message, letters_in_bowl)
+        # method_3 = self.is_message_in_letters_method_3(cleaned_message, letters_in_bowl)
 
-        return method_1
+        # return method_1, method_2, method_3
+        # return method_1, method_2
+        # return method_1
+        return method_2
 
     def clean_string(self, input_string):
         """get rid of punctuation
@@ -161,8 +166,6 @@ class MainApp:
         >>> c
         Counter({'a': 3, 'b': 0, 'c': -3, 'd': -6})
         """
-        # print("Message length: {}".format(len(message)))
-        # print("Number of letters: {}".format(len(letters)))
         message_c = Counter(message)
         letters_c = Counter(letters)
         letters_c.subtract(message_c)
@@ -172,13 +175,6 @@ class MainApp:
         return True
 
     def is_message_in_letters_method_2(self, message, letters):
-        """Algorithm method 2:
-
-        My own algorithm ...
-        """
-        return True
-
-    def is_message_in_letters_method_3(self, message, letters):
         """Algorithm method 3:
         Using similar algorithm as for Anagram Detection Solution 1 at:
         http://interactivepython.org/courselib/static/pythonds/AlgorithmAnalysis/AnAnagramDetectionExample.html
@@ -192,12 +188,9 @@ class MainApp:
         checked off by replacement.(...)"
 
         My contribution:
-        - Adding an test for length of strings
+        - Nothing, just testing with the prepared inputs
 
         """
-        print("Message length: {}".format(len(message)))
-        print("Number of letters: {}".format(len(letters)))
-
         alist = list(letters)
 
         pos1 = 0
@@ -226,7 +219,7 @@ if __name__ == '__main__':
     """Main function for module test
     """
     path = ''    # Where input files are located
-    test = 10      # <===  Desired test to run
+    test = 2      # <===  Desired test to run
     display_cProfile = 1    # Display cProfile statistics: 1 - Yes
 
     if test == 1:
